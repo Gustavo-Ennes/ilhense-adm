@@ -1,13 +1,13 @@
 using Mercado.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Mercado.Application.Routes;
+namespace Mercado.Application.Controllers;
 
 [ApiController]
 public class HealthCheckRoute: ControllerBase
 {
   [HttpGet]
-  [Route("/")]
+  [Route("/health")]
   [ProducesResponseType(StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   public HealthCheckRouteResponse HealthCheck()
