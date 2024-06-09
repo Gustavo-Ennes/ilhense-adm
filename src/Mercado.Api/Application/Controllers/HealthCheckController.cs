@@ -1,4 +1,5 @@
-using Mercado.Application.Responses;
+using Mercado.Application.Response;
+using Mercado.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mercado.Application.Controllers;
@@ -9,13 +10,14 @@ public class HealthCheckRoute: ControllerBase
   [HttpGet]
   [Route("/health")]
   [ProducesResponseType(StatusCodes.Status200OK)]
-  [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  public HealthCheckRouteResponse HealthCheck()
+  [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+  // TODO por Result<HealthCh...>
+  public async Task<HealthCheckRouteResponse> HealthCheck(IDatabaseRepository databaseRepository)
   {
-    return new HealthCheckRouteResponse
+    bool databaseRepositoryRespose = await databaseRepository.HealthCheck();
+    return new HealthCheckRouteResponse()
     {
-      Response = "System is running.",
-      ResponseCode = 200
+      
     };
   }
     
